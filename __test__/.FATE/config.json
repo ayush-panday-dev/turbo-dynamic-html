@@ -1,0 +1,42 @@
+{
+  "/different/test": {
+    "filepath": "/home/ayush/projects/FATE/__test__/routes/different/test.ts",
+    "layout": [
+      "/home/ayush/projects/FATE/__test__/routes/different/_layout.ts",
+      "/home/ayush/projects/FATE/__test__/routes/_layout.ts"
+    ]
+  },
+  "/different/next/next": {
+    "filepath": "/home/ayush/projects/FATE/__test__/routes/different/next/next.ts",
+    "layout": [
+      "/home/ayush/projects/FATE/__test__/routes/different/_layout.ts",
+      "/home/ayush/projects/FATE/__test__/routes/_layout.ts"
+    ]
+  },
+  "/different/next/host/file": {
+    "filepath": "/home/ayush/projects/FATE/__test__/routes/different/next/host/file.ts",
+    "layout": [
+      "/home/ayush/projects/FATE/__test__/routes/different/next/host/_layout.ts",
+      "/home/ayush/projects/FATE/__test__/routes/different/_layout.ts",
+      "/home/ayush/projects/FATE/__test__/routes/_layout.ts"
+    ]
+  },
+  "/about": {
+    "filepath": "/home/ayush/projects/FATE/__test__/routes/about.ts",
+    "layout": [
+      "/home/ayush/projects/FATE/__test__/routes/_layout.ts"
+    ]
+  },
+  "/:slug/thisisslug": {
+    "filepath": "/home/ayush/projects/FATE/__test__/routes/[slug]/thisisslug.ts",
+    "layout": [
+      "/home/ayush/projects/FATE/__test__/routes/_layout.ts"
+    ]
+  },
+  "/": {
+    "filepath": "/home/ayush/projects/FATE/__test__/routes/index.ts",
+    "layout": [
+      "/home/ayush/projects/FATE/__test__/routes/_layout.ts"
+    ]
+  }
+}
