@@ -1,11 +1,82 @@
 {
   "name": "turbo-dynamic-html",
+  "version": "0.1.0",
+  "description": "A turbo-charged dynamic HTML generator for modern web applications",
+  "main": "index.js",
   "module": "index.ts",
+  "type": "module",
+  "types": "index.d.ts",
+  "scripts": {
+    "start": "bun run index.ts",
+    "dev": "bun --watch index.ts",
+    "build": "bun build index.ts --outdir=dist --target=node",
+    "test": "bun test",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "bun run build && bun run test"
+  },
+  "keywords": [
+    "html",
+    "dynamic",
+    "turbo",
+    "web",
+    "generator",
+    "bun",
+    "typescript",
+    "routing",
+    "framework"
+  ],
+  "author": "Ayush Panday <your.email@example.com> (https://yourwebsite.com)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/turbo-dynamic-html.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/turbo-dynamic-html/issues"
+  },
+  "homepage": "https://github.com/yourusername/turbo-dynamic-html#readme",
+  "files": [
+    "dist",
+    "core",
+    "config",
+    "index.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18.0.0",
+    "bun": ">=1.0.0"
+  },
+  "dependencies": {},
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
-  "type": "module"
+  "exports": {
+    ".": {
+      "import": "./index.ts",
+      "require": "./dist/index.js",
+      "types": "./index.d.ts"
+    },
+    "./core": {
+      "import": "./core/index.ts",
+      "types": "./core/index.d.ts"
+    }
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/ayush-panday-dev"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
 }
