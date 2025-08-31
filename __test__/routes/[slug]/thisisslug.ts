@@ -2,7 +2,7 @@ import { generateTDHPages } from "../../../core";
 
 const page = generateTDHPages({
   render(data: any) {
-    return `<div>This is Working</div>`;
+    return `<div>${JSON.stringify(data)}</div>`;
   },
 });
 

@@ -7,7 +7,7 @@ export class TDHLayout {
 }
 
 export interface GenerateTDHLayoutOptions {
-  render: (data: unknown, children: string) => string;
+  render: (data: any, children: string) => string;
   type?: "static" | "dynamic";
   preventCatcheContent?: boolean;
 }
