@@ -27,16 +27,16 @@
     "routing",
     "framework"
   ],
-  "author": "Ayush Panday <your.email@example.com> (https://yourwebsite.com)",
+  "author": "Ayush Panday <ayushpanday.dev@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/turbo-dynamic-html.git"
+    "url": "https://github.com/ayush-panday-dev/turbo-dynamic-html"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/turbo-dynamic-html/issues"
+    "url": "https://github.com/ayush-panday-dev/turbo-dynamic-html"
   },
-  "homepage": "https://github.com/yourusername/turbo-dynamic-html#readme",
+  "homepage": "https://github.com/ayush-panday-dev/turbo-dynamic-html#readme",
   "files": [
     "dist",
     "core",
