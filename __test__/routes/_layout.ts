@@ -1,6 +1,6 @@
-import { generateFATELayout } from "../../core/FATELayout";
+import { generateTDHLayout } from "../../core/TDHLayout";
 
-const layout = generateFATELayout({
+const layout = generateTDHLayout({
   render: (data: any, children) => {
     return `<!DOCTYPE html>
 <html lang="en">

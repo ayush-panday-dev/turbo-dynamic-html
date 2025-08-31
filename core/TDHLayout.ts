@@ -1,18 +1,18 @@
-export class FATELayout {
+export class TDHLayout {
   constructor(
-    public render: GenerateFATELayoutOptions["render"],
-    private type: GenerateFATELayoutOptions["type"],
+    public render: GenerateTDHLayoutOptions["render"],
+    private type: GenerateTDHLayoutOptions["type"],
     private preventCatcheContent?: boolean
   ) {}
 }
 
-export interface GenerateFATELayoutOptions {
+export interface GenerateTDHLayoutOptions {
   render: (data: unknown, children: string) => string;
   type?: "static" | "dynamic";
   preventCatcheContent?: boolean;
 }
-export function generateFATELayout(options: GenerateFATELayoutOptions) {
-  return new FATELayout(
+export function generateTDHLayout(options: GenerateTDHLayoutOptions) {
+  return new TDHLayout(
     options.render,
     options.type || "dynamic",
     options.preventCatcheContent

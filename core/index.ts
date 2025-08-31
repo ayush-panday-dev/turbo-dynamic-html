@@ -1,1 +1,2 @@
-export * from "./FATEPages";
+export * from "./TDHPages";
+export * from "./TDHLayout"

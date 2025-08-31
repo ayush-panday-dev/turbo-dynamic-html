@@ -1,8 +1,8 @@
 import fs, { Dirent } from "fs";
 import path from "path";
 import RootConfig from "../config/root.config";
-import { FATEPages } from "./FATEPages";
-import { FATELayout } from "./FATELayout";
+import { TDHPages } from "./TDHPages";
+import { TDHLayout } from "./TDHLayout";
 
 function listRecursiveSync(base: string): string[] {
   const scan = (dir: string): string[] =>
@@ -22,12 +22,12 @@ function toPathname(rel: string): string {
     .replace(/\[([^\]]+)\]/g, ":$1");
 }
 
-export async function FATERouteGenerator() {
-  const outDir = path.join(process.cwd(), ".FATE");
+export async function TDHRouteGenerator() {
+  const outDir = path.join(process.cwd(), ".TDH");
   fs.rmSync(outDir, { recursive: true, force: true });
   fs.mkdirSync(outDir);
 
-  const base = RootConfig.FATE_RENDER_PATH;
+  const base = RootConfig.TDH_RENDER_PATH;
   const files = listRecursiveSync(base);
 
   const dirLayout: Record<string, string> = {};
@@ -36,21 +36,21 @@ export async function FATERouteGenerator() {
       if (!rel.endsWith("_layout.ts")) return;
       const abs = path.join(base, rel);
       const mod = await import(abs);
-      if (mod.default instanceof FATELayout) {
+      if (mod.default instanceof TDHLayout) {
         dirLayout[path.dirname(rel) === "." ? "" : path.dirname(rel)] = abs;
       }
     })
   );
 
   await files
-    .reduce<Promise<Record<string, FATERouteConfig>>>(async (accP, rel) => {
+    .reduce<Promise<Record<string, TDHRouteConfig>>>(async (accP, rel) => {
       const acc = await accP;
 
       if (!rel.endsWith(".ts") || rel.endsWith("_layout.ts")) return acc;
 
       const abs = path.join(base, rel);
       const page = (await import(abs)).default;
-      if (!(page instanceof FATEPages)) return acc;
+      if (!(page instanceof TDHPages)) return acc;
 
       const segments = path.dirname(rel).split(path.sep);
       const layouts: string[] = [];
@@ -70,7 +70,7 @@ export async function FATERouteGenerator() {
     });
 }
 
-export interface FATERouteConfig {
+export interface TDHRouteConfig {
   layout: string[];
   filepath: string;
 }

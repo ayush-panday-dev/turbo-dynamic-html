@@ -1,6 +1,6 @@
-import { generateFATEPages } from "../../core";
+import { generateTDHPages } from "../../core";
 
-const page = generateFATEPages({
+const page = generateTDHPages({
   render(data: any) {
     return `  <main>
     <div class="container">
