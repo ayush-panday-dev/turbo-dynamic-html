@@ -8,17 +8,21 @@ function listRecursiveSync(base: string): string[] {
   const scan = (dir: string): string[] =>
     fs.readdirSync(dir, { withFileTypes: true }).flatMap((e: Dirent) => {
       const full = path.join(dir, e.name);
-      return e.isDirectory() ? scan(full) : full;
+      if (e.isDirectory()) {
+        return scan(full);
+      } else {
+        return /\.(jsx|tsx|ts|js)$/.test(e.name) ? full : [];
+      }
     });
   return scan(base).map((p) => path.relative(base, p).replace(/\\/g, "/"));
 }
 
 function toPathname(rel: string): string {
   return rel
-    .replace("index.ts", "")
-    .replace(/\([^/]+\)\//g, "")
-    .replace(".ts", "")
-    .replace(".", "")
+    .replace(/index\.(jsx|tsx|ts|js)$/, "")
+    .replace(/\([^\/]+\)\//g, "")
+    .replace(/\.(jsx|tsx|ts|js)$/, "")
+    .replace(/\.$/, "")
     .replace(/\[([^\]]+)\]/g, ":$1");
 }
 

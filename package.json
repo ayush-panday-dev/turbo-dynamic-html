@@ -1,55 +1,13 @@
 {
   "name": "turbo-dynamic-html",
-  "version": "0.2.0",
-  "description": "A turbo-charged dynamic HTML generator for modern web applications",
-  "main": "index.js",
-  "module": "index.ts",
-  "type": "module",
-  "types": "index.d.ts",
-  "scripts": {
-    "start": "bun run index.ts",
-    "dev": "bun --watch index.ts",
-    "build": "bun build index.ts --outdir=dist --target=node",
-    "test": "bun test",
-    "lint": "eslint .",
-    "format": "prettier --write .",
-    "typecheck": "tsc --noEmit",
-    "prepublishOnly": "bun run build && bun run test"
-  },
-  "keywords": [
-    "html",
-    "dynamic",
-    "turbo",
-    "web",
-    "generator",
-    "bun",
-    "typescript",
-    "routing",
-    "framework"
-  ],
+  "version": "0.1.2",
   "author": "Ayush Panday <ayushpanday.dev@gmail.com>",
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/ayush-panday-dev/turbo-dynamic-html"
   },
-  "bugs": {
-    "url": "https://github.com/ayush-panday-dev/turbo-dynamic-html"
-  },
-  "homepage": "https://github.com/ayush-panday-dev/turbo-dynamic-html#readme",
-  "files": [
-    "dist",
-    "core",
-    "config",
-    "index.ts",
-    "README.md",
-    "LICENSE"
-  ],
-  "engines": {
-    "node": ">=18.0.0",
-    "bun": ">=1.0.0"
-  },
-  "dependencies": {},
+  "main": "index.js",
+  "module": "index.ts",
   "devDependencies": {
     "@types/bun": "latest",
     "@types/node": "^20.0.0",
@@ -71,12 +29,56 @@
       "types": "./core/index.d.ts"
     }
   },
+  "bugs": {
+    "url": "https://github.com/ayush-panday-dev/turbo-dynamic-html"
+  },
+  "description": "A turbo-charged dynamic HTML generator for modern web applications",
+  "engines": {
+    "node": ">=18.0.0",
+    "bun": ">=1.0.0"
+  },
+  "files": [
+    "dist",
+    "core",
+    "config",
+    "index.ts",
+    "README.md",
+    "LICENSE"
+  ],
   "funding": {
     "type": "github",
     "url": "https://github.com/sponsors/ayush-panday-dev"
   },
+  "homepage": "https://github.com/ayush-panday-dev/turbo-dynamic-html#readme",
+  "keywords": [
+    "html",
+    "dynamic",
+    "turbo",
+    "web",
+    "generator",
+    "bun",
+    "typescript",
+    "routing",
+    "framework"
+  ],
+  "license": "MIT",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "start": "bun run index.ts",
+    "dev": "bun --watch index.ts",
+    "build": "bun build index.ts --outdir=dist --target=node",
+    "test": "bun test",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "bun run build && bun run test"
+  },
+  "type": "module",
+  "types": "index.d.ts",
+  "dependencies": {
+    "chalk": "^5.6.0"
   }
 }
