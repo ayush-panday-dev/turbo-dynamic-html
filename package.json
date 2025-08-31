@@ -1,5 +1,5 @@
 {
-  "name": "fate",
+  "name": "turbo-dynamic-html",
   "module": "index.ts",
   "devDependencies": {
     "@types/bun": "latest"
