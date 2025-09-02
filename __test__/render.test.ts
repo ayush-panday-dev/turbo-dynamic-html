@@ -7,5 +7,5 @@ TDH.__init__({
 
 setTimeout(async () => {
   const html = await TDH.render("/test/thisisslug", { test: "asdf" });
-  await writeFile(path.join(process.cwd(), "index.html"), html);
+  await writeFile(path.join(process.cwd(), "__test__", "index.html"), html);
 }, 500);

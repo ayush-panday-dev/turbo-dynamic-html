@@ -1,6 +1,6 @@
 {
   "name": "turbo-dynamic-html",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "Ayush Panday <ayushpanday.dev@gmail.com>",
   "repository": {
     "type": "git",
@@ -11,9 +11,10 @@
   "devDependencies": {
     "@types/bun": "latest",
     "@types/node": "^20.0.0",
-    "typescript": "^5.0.0",
+    "esbuild": "^0.25.9",
     "eslint": "^8.0.0",
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "typescript": "^5.0.0"
   },
   "peerDependencies": {
     "typescript": "^5"
@@ -71,6 +72,7 @@
     "start": "bun run index.ts",
     "dev": "bun --watch index.ts",
     "build": "bun build index.ts --outdir=dist --target=node",
+    "generate-production-build": "bun scripts/build",
     "test": "bun test",
     "lint": "eslint .",
     "format": "prettier --write .",

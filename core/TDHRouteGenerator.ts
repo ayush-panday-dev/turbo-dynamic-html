@@ -1,8 +1,12 @@
 import fs, { Dirent } from "fs";
 import path from "path";
+import { build, type BuildResult } from "esbuild";
 import RootConfig from "../config/root.config";
-import { TDHPages } from "./TDHPages";
-import { TDHLayout } from "./TDHLayout";
+
+export interface TDHRouteConfig {
+  layout: string[];
+  filepath: string;
+}
 
 function listRecursiveSync(base: string): string[] {
   const scan = (dir: string): string[] =>
@@ -28,53 +32,97 @@ function toPathname(rel: string): string {
 
 export async function TDHRouteGenerator() {
   const outDir = path.join(process.cwd(), ".TDH");
+  const buildDir = path.join(outDir, "build");
+
   fs.rmSync(outDir, { recursive: true, force: true });
   fs.mkdirSync(outDir);
+  fs.mkdirSync(buildDir);
 
   const base = RootConfig.TDH_RENDER_PATH;
   const files = listRecursiveSync(base);
 
   const dirLayout: Record<string, string> = {};
-  await Promise.all(
-    files.map(async (rel) => {
-      if (!rel.endsWith("_layout.ts")) return;
-      const abs = path.join(base, rel);
-      const mod = await import(abs);
-      if (mod.default instanceof TDHLayout) {
-        dirLayout[path.dirname(rel) === "." ? "" : path.dirname(rel)] = abs;
-      }
-    })
-  );
+  const pageEntryPoints: Record<string, string> = {};
+  const finalConfig: Record<string, TDHRouteConfig> = {};
 
-  await files
-    .reduce<Promise<Record<string, TDHRouteConfig>>>(async (accP, rel) => {
-      const acc = await accP;
+  for (const rel of files) {
+    const abs = path.join(base, rel);
+    if (rel.endsWith("_layout.ts")) {
+      dirLayout[path.dirname(rel) === "." ? "" : path.dirname(rel)] = abs;
+    } else {
+      pageEntryPoints[rel] = abs;
+    }
+  }
 
-      if (!rel.endsWith(".ts") || rel.endsWith("_layout.ts")) return acc;
+  if (Object.keys(pageEntryPoints).length === 0) {
+    fs.writeFileSync(
+      path.join(outDir, "config.json"),
+      JSON.stringify({}, null, 2)
+    );
+    return;
+  }
 
-      const abs = path.join(base, rel);
-      const page = (await import(abs)).default;
-      if (!(page instanceof TDHPages)) return acc;
+  try {
+    const result = await build({
+      entryPoints: Object.values(pageEntryPoints),
+      bundle: true,
+      outdir: buildDir,
+      format: "esm",
+      platform: "node",
+      minify: true,
+      sourcemap: true,
+      splitting: true,
+      treeShaking: true,
+      metafile: true,
+      absWorkingDir: process.cwd(),
+    });
 
+    for (const [rel, abs] of Object.entries(pageEntryPoints)) {
+      const routePath = `/${toPathname(rel)}`;
       const segments = path.dirname(rel).split(path.sep);
       const layouts: string[] = [];
+
       for (let i = 0; i <= segments.length; i++) {
         const dir = segments.slice(0, i).join("/") || "";
-        if (dir in dirLayout) layouts.push(dirLayout[dir] as string);
+        if (dir in dirLayout) {
+          layouts.push(dirLayout[dir] as string);
+        }
       }
 
-      acc[`/${toPathname(rel)}`] = { filepath: abs, layout: layouts.reverse() };
-      return acc;
-    }, Promise.resolve({}))
-    .then((config) => {
-      fs.writeFileSync(
-        path.join(outDir, "config.json"),
-        JSON.stringify(config, null, 2)
-      );
-    });
+      const outputFile = findOutputFile(abs, result);
+      if (!outputFile) {
+        console.error(`Could not find output file for ${abs}`);
+        continue;
+      }
+
+      finalConfig[routePath] = {
+        filepath: outputFile,
+        layout: layouts.reverse(),
+      };
+    }
+  } catch (error) {
+    console.error("❌ Build failed:", error);
+    process.exit(1);
+  }
+
+  fs.writeFileSync(
+    path.join(outDir, "config.json"),
+    JSON.stringify(finalConfig, null, 2)
+  );
 }
 
-export interface TDHRouteConfig {
-  layout: string[];
-  filepath: string;
+function findOutputFile(
+  absInputPath: string,
+  result: BuildResult<{ metafile: true }>
+): string | null {
+  const relativeInput = path
+    .relative(process.cwd(), absInputPath)
+    .replace(/\\/g, "/");
+
+  for (const [outPath, meta] of Object.entries(result.metafile.outputs)) {
+    if (meta.entryPoint && meta.entryPoint === relativeInput) {
+      return path.resolve(process.cwd(), outPath);
+    }
+  }
+  return null;
 }
