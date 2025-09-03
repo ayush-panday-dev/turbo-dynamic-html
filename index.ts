@@ -4,9 +4,6 @@ import {
   TDHRouteGenerator,
   type TDHRouteConfig,
 } from "./core/TDHRouteGenerator";
-import fs from "fs/promises";
-import type { TDHPages } from "./core";
-import type { TDHLayout } from "./core/TDHLayout";
 import { Logger } from "./utils/logger";
 import render from "./core/render";
 

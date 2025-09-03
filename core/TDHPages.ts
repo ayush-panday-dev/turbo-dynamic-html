@@ -7,7 +7,7 @@ export class TDHPages {
 }
 
 export interface GenerateTDHPagesOptions {
-  render: (data: any) => string;
+  render: (data: any) => Promise<string> | string;
   type?: "static" | "dynamic";
   preventCatcheContent?: boolean;
 }

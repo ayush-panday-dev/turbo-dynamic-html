@@ -28,6 +28,10 @@ bun add turbo-dynamic-html
 yarn add turbo-dynamic-html
 ```
 
+### Recomended Extensions
+
+Althought there are Many extensions on vscode that provides user snipit but we are recommending to use is `julienetie.vscode-template-literals` https://marketplace.visualstudio.com/items?itemName=julienetie.vscode-template-literals extension for better suggestions.
+
 ### Basic Usage
 
 ```javascript

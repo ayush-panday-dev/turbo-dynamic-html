@@ -35,7 +35,7 @@ export default async function render(pathname: string, data: any = {}) {
     }
     const pageRender = (await import(config.filepath)).default as TDHPages;
 
-    let htmlString = pageRender.render({ ...data, params });
+    let htmlString = await pageRender.render({ ...data, params });
     for (const layout of config.layout) {
       const layoutInstance = (await import(layout)).default as TDHLayout;
       htmlString = layoutInstance.render({ ...data, params }, htmlString);
