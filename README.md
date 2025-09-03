@@ -7,13 +7,13 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
 
-**Ultra-fast JavaScript template engine for dynamic HTML generation**
+**Superfast JavaScript template engine for dynamic Webapplication**
 
-A lightweight, high-performance template engine built for speed and efficiency. Turbo Dynamic HTML is designed to outperform existing template engines with its optimized architecture, file-based routing system, and efficient rendering capabilities.
+A lightweight, high-performance template built for speed and efficiency. Turbo Dynamic HTML is designed to outperform existing template engines with its optimized architecture, file-based routing system, and efficient rendering capabilities.
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation
 
@@ -60,20 +60,20 @@ app.listen(3000, () => {
 
 ---
 
-## 🌟 Features
+## Features
 
-- **⚡ Lightning Fast**: Optimized for maximum performance with raw TypeScript/JavaScript
-- **📁 File-based Routing**: Automatic route generation based on file structure
-- **🎨 Layout System**: Nested layout support with automatic composition
-- **💾 Built-in Caching**: Optional Redis caching for production environments
-- **🔧 TypeScript First**: Written in TypeScript with full type safety
-- **🪶 Zero Dependencies**: Minimal footprint with no external runtime dependencies
-- **🔄 Dynamic/Static Pages**: Support for both dynamic and static page generation
-- **🌐 Flexible Architecture**: Works with any Node.js framework or runtime
+- **Lightning Fast**: Optimized for maximum performance with raw TypeScript/JavaScript
+- **File-based Routing**: Automatic route generation based on file structure
+- **Layout System**: Nested layout support with automatic composition
+- **Built-in Caching**: Optional Redis caching for production environments
+- **TypeScript First**: Written in TypeScript with full type safety
+- **Zero Dependencies**: Minimal footprint with no external runtime dependencies
+- **Dynamic/Static Pages**: Support for both dynamic and static page generation
+- **Flexible Architecture**: Works with any Node.js framework or runtime
 
 ---
 
-## 📖 Documentation
+## Documentation
 
 ### File-based Routing
 
@@ -91,13 +91,11 @@ views/
 
 ### Template Syntax
 
-Turbo Dynamic HTML supports intuitive template syntax:
-
 ```TS
 import { generateTDHPages } from "turbo-dynamic-html";
 
 const page = generateTDHPages({
-  render(data: { chaibg: string }) {
+  render(data: YourDataType) {
     return `<section>Your page content here</section>
 `;
   },
@@ -147,49 +145,25 @@ export default layout;
 
 ```
 
-<!--
-## ⚡ Performance Benchmarks
+> **Development Status**
 
-Turbo Dynamic HTML consistently outperforms other popular template engines:
-Note: This is not actual data
+**Current Version**: Alpha (v1.0.0-RX.X)
 
-| Engine                 | Render Time (1000 iterations) | Memory Usage | Cache Hit Rate |
-| ---------------------- | ----------------------------- | ------------ | -------------- |
-| **Turbo Dynamic HTML** | **15ms**                      | **2.1MB**    | **98%**        |
-| EJS                    | 68ms                          | 4.2MB        | 85%            |
-| Handlebars             | 125ms                         | 6.8MB        | 82%            |
-| Pug                    | 89ms                          | 3.9MB        | 88%            |
-| Nunjucks               | 156ms                         | 7.1MB        | 79%            |
+We are continusly working to imporve our Template Engine to improve performance boost:
 
-_Benchmarks performed on Node.js 20.x with 1000 template renders_
-
---- -->
-
-## 🔍 Examples
-
----
-
-## 🚧 Development Status
-
-**Current Version**: Alpha (v0.1.x)
-
-This template engine is actively being developed with the following roadmap:
-
-### ✅ Completed Features
+### Completed Features
 
 - Basic template compilation and rendering
 - File-based routing foundation
 - TypeScript support
-- Express.js integration
 
-### 🔄 In Progress
+### In Progress
 
-- Performance optimizations for core rendering engine
-- Comprehensive error handling and debugging tools
-- Redis caching implementation
-- Advanced layout composition system
+- Integrate with express
+- Redis Catching
+- Maybe on future gzip
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please read our [Contributing Guide](CONTRIBUTING.md) for details.
 
@@ -215,7 +189,7 @@ npm test
 
 ---
 
-## 📊 Compatibility
+## Compatibility
 
 - **Node.js**: 16.x, 18.x, 20.x, 22.x
 - **Bun**: 1.x+
@@ -224,7 +198,7 @@ npm test
 
 ---
 
-## 💬 Support
+## Support
 
 - **GitHub Issues**: [Report bugs or request features](https://github.com/ayush-panday-dev/turbo-dynamic-html/issues)
 - **Email**: ayush.panday.dev@gmail.com
