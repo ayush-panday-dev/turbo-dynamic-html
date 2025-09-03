@@ -2,6 +2,7 @@ import fs, { Dirent } from "fs";
 import path from "path";
 import { build, type BuildResult } from "esbuild";
 import RootConfig from "../config/root.config";
+import { Logger } from "../utils/logger";
 
 export interface TDHRouteConfig {
   layout: string[];
@@ -91,17 +92,21 @@ export async function TDHRouteGenerator() {
 
       const outputFile = findOutputFile(abs, result);
       if (!outputFile) {
-        console.error(`Could not find output file for ${abs}`);
+        Logger.error(`Could not find output file for ${abs}`);
         continue;
       }
 
+      const module = (await import(outputFile)).default;
+      if (!module) {
+        return Logger.warn(`Not a route: ${outputFile}`);
+      }
       finalConfig[routePath] = {
         filepath: outputFile,
         layout: layouts.reverse(),
       };
     }
   } catch (error) {
-    console.error("❌ Build failed:", error);
+    Logger.error("Build failed:", error);
     process.exit(1);
   }
 

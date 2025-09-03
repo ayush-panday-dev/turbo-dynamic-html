@@ -5,9 +5,15 @@ import type { TDHRouteConfig } from "./TDHRouteGenerator";
 import { Logger } from "../utils/logger";
 import type { TDHPages } from "./TDHPages";
 import type { TDHLayout } from "./TDHLayout";
+import { MemoryCatching } from "../utils/catching";
+import RootConfig from "../config/root.config";
 
 export default async function render(pathname: string, data: any = {}) {
   try {
+    const catche = MemoryCatching.getFromCatch(pathname);
+    if (catche) {
+      return catche.value;
+    }
     const configDir = path.join(process.cwd(), ".TDH", "config.json");
 
     const pageConfig = JSON.parse(
@@ -40,6 +46,10 @@ export default async function render(pathname: string, data: any = {}) {
       const layoutInstance = (await import(layout)).default as TDHLayout;
       htmlString = layoutInstance.render({ ...data, params }, htmlString);
     }
+
+    MemoryCatching.insertCatche(pathname, htmlString, {
+      expiry: new Date(Date.now() + (RootConfig.TDH_TTL || 120) * 1000),
+    });
     return htmlString;
   } catch (error) {
     Logger.error(error);

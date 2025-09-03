@@ -5,7 +5,7 @@ TDH.__init__({
   TDH_RENDER_PATH: path.join(process.cwd(), "__test__", "routes"),
 });
 
-setTimeout(async () => {
+setInterval(async () => {
   const html = await TDH.render("/test/thisisslug", { test: "asdf" });
   await writeFile(path.join(process.cwd(), "__test__", "index.html"), html);
-}, 500);
+}, 10_000);

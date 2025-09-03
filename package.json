@@ -1,6 +1,6 @@
 {
   "name": "turbo-dynamic-html",
-  "version": "0.1.9",
+  "version": "0.2.1-early.1",
   "author": "Ayush Panday <ayushpanday.dev@gmail.com>",
   "repository": {
     "type": "git",
@@ -26,8 +26,7 @@
   "exports": {
     ".": {
       "import": "./index.ts",
-      "require": "./dist/index.js",
-      "types": "./index.d.ts"
+      "require": "./dist/index.js"
     },
     "./core": {
       "import": "./core/index.ts",

@@ -1,2 +1,2 @@
-import{a as e}from"../../chunk-JBQOLC6I.js";var r=e({render(a){return"<div>This is Working</div>"}}),i=r;export{i as default};
+import{a as e}from"../../chunk-CFDHZ5E3.js";var r=e({render(a){return"<div>This is Working</div>"}}),i=r;export{i as default};
 //# sourceMappingURL=next.js.map

@@ -1,16 +1,16 @@
 interface catching {
   value: string;
-  ttl?: Date;
+  expiry?: Date;
 }
 export class MemoryCatching {
   private static catcheValues: Record<string, catching> = {};
   public static insertCatche(
     key: string,
     value: catching["value"],
-    options: Omit<catching, "value">
+    options?: Omit<catching, "value">
   ) {
     this.catcheValues[key] = {
-      ...options,
+      ...(options || {}),
       value: value,
     };
   }
@@ -19,7 +19,7 @@ export class MemoryCatching {
     if (!catche) {
       return null;
     }
-    if (catche.ttl && new Date() > catche.ttl) {
+    if (catche.expiry && new Date() > catche.expiry) {
       delete this.catcheValues[key];
       return null;
     }
