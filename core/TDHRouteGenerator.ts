@@ -4,6 +4,9 @@ import { build, type BuildResult } from "esbuild";
 import RootConfig from "../config/root.config";
 import { Logger } from "../utils/logger";
 
+const DEFAULT_404 = path.join(__dirname, "../template/404.ts");
+const DEFAULT_500 = path.join(__dirname, "../template/500.ts");
+
 export interface TDHRouteConfig {
   layout: string[];
   filepath: string;
@@ -40,16 +43,27 @@ export async function TDHRouteGenerator() {
   fs.mkdirSync(buildDir);
 
   const base = RootConfig.TDH_RENDER_PATH;
+
   const files = listRecursiveSync(base);
 
   const dirLayout: Record<string, string> = {};
   const pageEntryPoints: Record<string, string> = {};
+  let notFound = "";
+  let internalServerError = "";
   const finalConfig: Record<string, TDHRouteConfig> = {};
 
   for (const rel of files) {
     const abs = path.join(base, rel);
-    if (rel.endsWith("_layout.ts")) {
+    const isLayout = /_layout\.(tsx|jsx|ts|js)$/.test(rel);
+    const is404 = /^404\.(tsx|jsx|ts|js)$/.test(rel);
+    const is500 = /^500\.(tsx|jsx|ts|js)$/.test(rel);
+
+    if (isLayout) {
       dirLayout[path.dirname(rel) === "." ? "" : path.dirname(rel)] = abs;
+    } else if (is404) {
+      notFound = abs;
+    } else if (is500) {
+      internalServerError = abs;
     } else {
       pageEntryPoints[rel] = abs;
     }
@@ -63,9 +77,22 @@ export async function TDHRouteGenerator() {
     return;
   }
 
+  if (!notFound) {
+    notFound = DEFAULT_404;
+  }
+
+  if (!internalServerError) {
+    internalServerError = DEFAULT_500;
+  }
+
   try {
+    const allEntryPoints: string[] = [
+      ...Object.values(pageEntryPoints),
+      ...Object.values(dirLayout),
+    ];
+
     const result = await build({
-      entryPoints: Object.values(pageEntryPoints),
+      entryPoints: allEntryPoints,
       bundle: true,
       outdir: buildDir,
       format: "esm",
@@ -78,6 +105,52 @@ export async function TDHRouteGenerator() {
       absWorkingDir: process.cwd(),
     });
 
+    const specialPages = [
+      { name: "404", path: notFound },
+      { name: "500", path: internalServerError },
+    ];
+
+    for (const { name, path: specialPath } of specialPages) {
+      const specialResult = await build({
+        entryPoints: [specialPath],
+        bundle: true,
+        outdir: buildDir,
+        format: "esm",
+        platform: "node",
+        minify: true,
+        sourcemap: true,
+        splitting: false,
+        treeShaking: true,
+        metafile: true,
+        absWorkingDir: process.cwd(),
+        entryNames: name,
+      });
+
+      const outputFile = findOutputFile(specialPath, specialResult);
+      if (!outputFile) {
+        Logger.error(
+          `Could not find output file for ${name} page: ${specialPath}`
+        );
+        continue;
+      }
+
+      const module = (await import(outputFile)).default;
+      if (!module) {
+        Logger.warn(`Not a route: ${outputFile}`);
+        continue;
+      }
+
+      Logger.info(`${name} page built and cached: ${outputFile}`);
+    }
+
+    const builtLayouts: Record<string, string> = {};
+    for (const [dir, layoutPath] of Object.entries(dirLayout)) {
+      const outputFile = findOutputFile(layoutPath, result);
+      if (outputFile) {
+        builtLayouts[dir] = outputFile;
+      }
+    }
+
     for (const [rel, abs] of Object.entries(pageEntryPoints)) {
       const routePath = `/${toPathname(rel)}`;
       const segments = path.dirname(rel).split(path.sep);
@@ -85,8 +158,8 @@ export async function TDHRouteGenerator() {
 
       for (let i = 0; i <= segments.length; i++) {
         const dir = segments.slice(0, i).join("/") || "";
-        if (dir in dirLayout) {
-          layouts.push(dirLayout[dir] as string);
+        if (dir in builtLayouts) {
+          layouts.push(builtLayouts[dir] as string);
         }
       }
 
@@ -98,8 +171,10 @@ export async function TDHRouteGenerator() {
 
       const module = (await import(outputFile)).default;
       if (!module) {
-        return Logger.warn(`Not a route: ${outputFile}`);
+        Logger.warn(`Not a route: ${outputFile}`);
+        continue;
       }
+
       finalConfig[routePath] = {
         filepath: outputFile,
         layout: layouts.reverse(),

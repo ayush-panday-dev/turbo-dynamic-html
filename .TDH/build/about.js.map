@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["../../__test__/routes/about.ts"],
-  "sourcesContent": ["import { generateTDHPages } from \"../../core\";\n\nconst page = generateTDHPages({\n  render(data: any) {\n    return `<div>This is Working</div>`;\n  },\n});\n\nexport default page;\n"],
-  "mappings": "wCAEA,IAAMA,EAAOC,EAAiB,CAC5B,OAAOC,EAAW,CAChB,MAAO,4BACT,CACF,CAAC,EAEMC,EAAQH",
-  "names": ["page", "generateTDHPages", "data", "about_default"]
+  "sourcesContent": ["import { generateTDHPage } from \"../../core\";\n\nconst page = generateTDHPage({\n  render(data: any) {\n    return `<div>This is Working</div>`;\n  },\n});\n\nexport default page;\n"],
+  "mappings": "oEAEA,IAAMA,EAAOC,EAAgB,CAC3B,OAAOC,EAAW,CAChB,MAAO,4BACT,CACF,CAAC,EAEMC,EAAQH",
+  "names": ["page", "generateTDHPage", "data", "about_default"]
 }

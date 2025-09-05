@@ -6,6 +6,9 @@ TDH.__init__({
 });
 
 setInterval(async () => {
-  const html = await TDH.render("/test/thisisslug", { test: "asdf" });
+  const html = await TDH.render("/test/thisisslug/testnow/working", {
+    test: "asdf",
+  });
+  console.log(html);
   await writeFile(path.join(process.cwd(), "__test__", "index.html"), html);
 }, 10_000);

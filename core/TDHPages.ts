@@ -1,17 +1,17 @@
 export class TDHPages {
   constructor(
-    public render: GenerateTDHPagesOptions["render"],
-    private type: GenerateTDHPagesOptions["type"],
+    public render: generateTDHPageOptions["render"],
+    private type: generateTDHPageOptions["type"],
     private preventCatcheContent?: boolean
   ) {}
 }
 
-export interface GenerateTDHPagesOptions {
+export interface generateTDHPageOptions {
   render: (data: any) => Promise<string> | string;
   type?: "static" | "dynamic";
   preventCatcheContent?: boolean;
 }
-export function generateTDHPages(options: GenerateTDHPagesOptions) {
+export function generateTDHPage(options: generateTDHPageOptions) {
   return new TDHPages(
     options.render,
     options.type || "dynamic",

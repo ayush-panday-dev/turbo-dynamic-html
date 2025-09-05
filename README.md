@@ -92,9 +92,9 @@ views/
 ### Template Syntax
 
 ```TS
-import { generateTDHPages } from "turbo-dynamic-html";
+import { generateTDHPage } from "turbo-dynamic-html";
 
-const page = generateTDHPages({
+const page = generateTDHPage({
   render(data: YourDataType) {
     return `<section>Your page content here</section>
 `;
@@ -147,7 +147,7 @@ export default layout;
 
 > **Development Status**
 
-**Current Version**: Alpha (v1.0.0-RX.X)
+**Current Version**: Alpha (v1.0.0-beta.X.X)
 
 We are continusly working to imporve our Template Engine to improve performance boost:
 

@@ -34,10 +34,16 @@ export default async function render(pathname: string, data: any = {}) {
     }
 
     if (!config) {
-      Logger.todo(
-        "When we do not found any pathname we will render Not found html on future release"
-      );
-      return `TODO: Here will be not found page later on future release.`;
+      const notFountDir = path.join(process.cwd(), ".TDH", "build");
+      const page = (await import(path.join(notFountDir, "404.js")))
+        .default as TDHPages;
+      const layoutInstance = (
+        await import(path.join(notFountDir, "_layout.js"))
+      ).default as TDHLayout;
+      const pagedata = await page.render(null);
+      const layout = await layoutInstance.render(null, pagedata);
+
+      return layout;
     }
     const pageRender = (await import(config.filepath)).default as TDHPages;
 
@@ -53,7 +59,15 @@ export default async function render(pathname: string, data: any = {}) {
     return htmlString;
   } catch (error) {
     Logger.error(error);
-    return `TODO: here will be 500 file`;
+    const notFountDir = path.join(process.cwd(), ".TDH", "build");
+    const page = (await import(path.join(notFountDir, "500.js")))
+      .default as TDHPages;
+    const layoutInstance = (await import(path.join(notFountDir, "_layout.js")))
+      .default as TDHLayout;
+    const pagedata = await page.render(error);
+    const layout = await layoutInstance.render(null, pagedata);
+
+    return layout;
   }
 }
 

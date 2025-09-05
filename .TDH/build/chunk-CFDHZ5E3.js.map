@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../core/TDHPages.ts"],
-  "sourcesContent": ["export class TDHPages {\n  constructor(\n    public render: GenerateTDHPagesOptions[\"render\"],\n    private type: GenerateTDHPagesOptions[\"type\"],\n    private preventCatcheContent?: boolean\n  ) {}\n}\n\nexport interface GenerateTDHPagesOptions {\n  render: (data: any) => Promise<string> | string;\n  type?: \"static\" | \"dynamic\";\n  preventCatcheContent?: boolean;\n}\nexport function generateTDHPages(options: GenerateTDHPagesOptions) {\n  return new TDHPages(\n    options.render,\n    options.type || \"dynamic\",\n    options.preventCatcheContent\n  );\n}\n"],
-  "mappings": "AAAO,IAAMA,EAAN,KAAe,CACpB,YACSC,EACCC,EACAC,EACR,CAHO,YAAAF,EACC,UAAAC,EACA,0BAAAC,CACP,CACL,EAOO,SAASC,EAAiBC,EAAkC,CACjE,OAAO,IAAIL,EACTK,EAAQ,OACRA,EAAQ,MAAQ,UAChBA,EAAQ,oBACV,CACF",
-  "names": ["TDHPages", "render", "type", "preventCatcheContent", "generateTDHPages", "options"]
-}

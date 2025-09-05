@@ -1,6 +1,6 @@
-import { generateTDHPages } from "../../../core";
+import { generateTDHPage } from "../../../core";
 
-const page = generateTDHPages({
+const page = generateTDHPage({
   render(data: any) {
     return `<div>${JSON.stringify(data)}</div>`;
   },
