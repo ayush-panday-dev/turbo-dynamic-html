@@ -1,13 +1,13 @@
 {
   "name": "turbo-dynamic-html",
-  "version": "1.0.0-beta.1.1756915676158",
+  "version": "1.0.0-beta.1.1757092818907",
   "author": "Ayush Panday <ayushpanday.dev@gmail.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/ayush-panday-dev/turbo-dynamic-html"
   },
   "main": "index.js",
-  "module": "index.ts",
+  "module": "index.js",
   "devDependencies": {
     "@types/bun": "latest",
     "@types/node": "^20.0.0",
@@ -48,7 +48,8 @@
     "config",
     "index.ts",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "template"
   ],
   "funding": {
     "type": "github",

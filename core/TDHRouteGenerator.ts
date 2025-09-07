@@ -139,8 +139,6 @@ export async function TDHRouteGenerator() {
         Logger.warn(`Not a route: ${outputFile}`);
         continue;
       }
-
-      Logger.info(`${name} page built and cached: ${outputFile}`);
     }
 
     const builtLayouts: Record<string, string> = {};
@@ -169,6 +167,7 @@ export async function TDHRouteGenerator() {
         continue;
       }
 
+      console.log(outputFile);
       const module = (await import(outputFile)).default;
       if (!module) {
         Logger.warn(`Not a route: ${outputFile}`);

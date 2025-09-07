@@ -7,6 +7,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
 
+> **WARNING**: This pacakge is on development mode and currently work with bun only, we are working on it to make compaitable to npm and with _1.0.0_ stable release we will fix this issue
+
 **Superfast JavaScript template engine for dynamic Webapplication**
 
 A lightweight, high-performance template built for speed and efficiency. Turbo Dynamic HTML is designed to outperform existing template engines with its optimized architecture, file-based routing system, and efficient rendering capabilities.

@@ -1,5 +1,5 @@
 interface catching {
-  value: string;
+  value: any;
   expiry?: Date;
 }
 export class MemoryCatching {

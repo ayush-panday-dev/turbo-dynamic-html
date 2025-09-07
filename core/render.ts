@@ -8,20 +8,29 @@ import type { TDHLayout } from "./TDHLayout";
 import { MemoryCatching } from "../utils/catching";
 import RootConfig from "../config/root.config";
 
+async function getConfig(): Promise<Record<string, TDHRouteConfig>> {
+  const catchedConfig = MemoryCatching.getFromCatch("tdh-config");
+  if (catchedConfig) {
+    return catchedConfig.value;
+  }
+  const configDir = path.join(process.cwd(), ".TDH", "config.json");
+  const config = JSON.parse(
+    await fs.readFile(configDir, {
+      encoding: "utf-8",
+    })
+  );
+  MemoryCatching.insertCatche("tdh-config", config, {
+    expiry: new Date(new Date().setDate(new Date().getDate() + 3)),
+  });
+  return config;
+}
 export default async function render(pathname: string, data: any = {}) {
   try {
     const catche = MemoryCatching.getFromCatch(pathname);
     if (catche) {
       return catche.value;
     }
-    const configDir = path.join(process.cwd(), ".TDH", "config.json");
-
-    const pageConfig = JSON.parse(
-      await fs.readFile(configDir, {
-        encoding: "utf-8",
-      })
-    );
-
+    const pageConfig = await getConfig();
     let config = pageConfig[pathname] as TDHRouteConfig;
     let params: Record<string, string> = {};
 

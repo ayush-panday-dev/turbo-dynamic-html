@@ -72,13 +72,8 @@
 
   
       <style>
-        @keyframes glitch {
-          2%,64% { transform: translate(2px,0) skew(0deg); }
-          4%,60% { transform: translate(-2px,0) skew(0deg); }
-          62%    { transform: translate(0,0) skew(5deg); }
-        }
-       .server-error-body {
-          background-color: #13111C; 
+        .not-found-body {
+          background-color: #1B1212;
           font-family: 'Source Sans Pro', sans-serif;
           margin: 0;
           padding: 0;
@@ -86,7 +81,7 @@
           -moz-osx-font-smoothing: grayscale;
         }
 
-        .server-error-section {
+        .not-found-section {
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -94,63 +89,36 @@
           text-align: center;
           min-height: 100vh;
           padding: 4rem 2rem;
-          box-sizing: border-box;
+          box-sizing: border-box; 
         }
 
-        .server-error-heading {
+        .not-found-heading {
           font-family: 'Playfair Display', serif;
           font-size: clamp(8rem, 25vw, 12rem);
           font-weight: 700;
           line-height: 1;
           margin: 0;
-          color: #B4A9E4; 
-          position: relative;
-          animation: glitch 1s linear infinite;
+          color: #D72C2C; 
+          text-shadow: 0 4px 25px rgba(215, 44, 44, 0.2);
         }
         
-        .server-error-heading::before,
-        .server-error-heading::after {
-          content: '500';
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          background: #13111C;
-          overflow: hidden;
-        }
-
-        .server-error-heading::before {
-          left: 2px;
-          text-shadow: -2px 0 #FF4A4A;
-          clip-path: rect(44px, 450px, 56px, 0);
-          animation: glitch 3s infinite linear alternate-reverse;
-        }
-
-        .server-error-heading::after {
-          left: -2px;
-          text-shadow: -2px 0 #4AC7FF; 
-          clip-path: rect(85px, 450px, 90px, 0);
-          animation: glitch 2s infinite linear alternate-reverse;
-        }
-
-        .server-error-subheading {
+        .not-found-subheading {
           font-family: 'Playfair Display', serif;
-          color: #E0DAFF; 
+          color: #F5E9E9; 
           font-size: clamp(1.5rem, 4vw, 2.5rem);
-          margin-top: 2rem;
+          margin-top: 1rem;
           margin-bottom: 1rem;
         }
 
-        .server-error-text {
-          color: #79719A; 
+        .not-found-text {
+          color: #8A7979; 
           font-size: 1.1rem;
-          max-width: 550px;
+          max-width: 500px;
           margin-bottom: 2.5rem;
           line-height: 1.7;
         }
 
-        .server-error-btn {
+        .not-found-btn {
           display: inline-flex;
           align-items: center;
           padding: 16px 32px;
@@ -160,33 +128,33 @@
           font-weight: 700;
           text-decoration: none;
           cursor: pointer;
-          border: 1px solid #79719A;
+          border: none;
           transition: all 0.3s ease;
           letter-spacing: 0.5px;
-          background-color: transparent;
-          color: #E0DAFF;
+          background-color: #D72C2C;
+          color: #1B1212;
         }
         
-        .server-error-btn:hover {
-          background-color: #B4A9E4;
-          border-color: #B4A9E4;
-          color: #13111C;
+        .not-found-btn:hover {
+          filter: brightness(1.1);
+          transform: translateY(-4px);
+          box-shadow: 0 10px 20px rgba(215, 44, 44, 0.2);
         }
         
-        .server-error-btn i {
+        .not-found-btn i {
           margin-right: 10px;
         }
       </style>
 
-      <div class="server-error-body">
-        <section class="server-error-section">
-          <h1 class="server-error-heading">500</h1>
-          <h2 class="server-error-subheading">Internal Server Error</h2>
-          <p class="server-error-text">
-            It seems there's a technical issue on our end. Our team has been notified. Please try refreshing the page in a few moments.
+      <div class="not-found-body">
+        <section class="not-found-section">
+          <h1 class="not-found-heading">404</h1>
+          <h2 class="not-found-subheading">Page Not Found</h2>
+          <p class="not-found-text">
+            The page you're looking for seems to have been misplaced. Let's get you back on track.
           </p>
-          <a href="/" class="server-error-btn">
-            <i class="fa-solid fa-house"></i> Return to Homepage
+          <a href="/" class="not-found-btn">
+            <i class="fa-solid fa-house"></i> Go To Homepage
           </a>
         </section>
       </div>
