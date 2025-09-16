@@ -1,7 +1,6 @@
 import path from "path";
 import fs from "fs/promises";
 
-import type { TDHRouteConfig } from "./TDHRouteGenerator";
 import { Logger } from "../utils/logger";
 import type { TDHPages } from "./TDHPages";
 import type { TDHLayout } from "./TDHLayout";

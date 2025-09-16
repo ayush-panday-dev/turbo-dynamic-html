@@ -6,11 +6,6 @@ export class TDHPages {
   ) {}
 }
 
-export interface generateTDHPageOptions {
-  render: (data: any) => Promise<string> | string;
-  type?: "static" | "dynamic";
-  preventCatcheContent?: boolean;
-}
 export function generateTDHPage(options: generateTDHPageOptions) {
   return new TDHPages(
     options.render,

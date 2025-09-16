@@ -1,12 +1,13 @@
 {
   "name": "turbo-dynamic-html",
-  "version": "1.0.0-beta.1.1757092818907",
+  "version": "1.0.0-beta.1.1757993447598",
   "author": "Ayush Panday <ayushpanday.dev@gmail.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/ayush-panday-dev/turbo-dynamic-html"
   },
-  "main": "index.js",
+  "main": "dist/cjs/index.js",
+  "types": "index.d.ts",
   "module": "index.js",
   "devDependencies": {
     "@types/bun": "latest",
@@ -25,12 +26,14 @@
   },
   "exports": {
     ".": {
-      "import": "./index.ts",
-      "require": "./dist/index.js"
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.cjs",
+      "types": "./index.d.ts"
     },
     "./core": {
-      "import": "./core/index.ts",
-      "types": "./core/index.d.ts"
+      "types": "./index.d.ts",
+      "import": "./dist/esm/core/index.js",
+      "require": "./dist/cjs/core/index.js"
     }
   },
   "bugs": {
@@ -43,11 +46,12 @@
   },
   "files": [
     "dist",
+    "index.d.ts",
     "utils",
     "core",
     "config",
-    "index.ts",
     "README.md",
+    "index.ts",
     "LICENSE",
     "template"
   ],
@@ -75,16 +79,19 @@
   "scripts": {
     "start": "bun run index.ts",
     "dev": "bun --watch index.ts",
-    "build": "bun build index.ts --outdir=dist --target=node",
+    "build": "bun run build:clean && bun run build:esm && bun run build:cjs && bun run build:types",
+    "build:clean": "rm -rf dist",
+    "build:esm": "bun build index.ts --outdir=dist/esm --target=node --format=esm",
+    "build:cjs": "bun build index.ts --outfile=dist/cjs/index.cjs --target=node --format=cjs",
+    "build:types": "tsc --emitDeclarationOnly --outDir dist/types",
     "generate-production-build": "bun scripts/build",
-    "test": "bun test",
     "lint": "eslint .",
+    "test": "tsc --noEmit",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "bun run build && bun run test"
   },
   "type": "module",
-  "types": "index.d.ts",
   "dependencies": {
     "chalk": "^5.6.0",
     "esbuild": ">=0.25"

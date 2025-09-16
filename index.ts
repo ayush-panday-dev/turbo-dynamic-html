@@ -1,9 +1,6 @@
 import path from "path";
-import RootConfig, { type iRootConfig } from "./config/root.config";
-import {
-  TDHRouteGenerator,
-  type TDHRouteConfig,
-} from "./core/TDHRouteGenerator";
+import RootConfig from "./config/root.config";
+import { TDHRouteGenerator } from "./core/TDHRouteGenerator";
 import { Logger } from "./utils/logger";
 import render from "./core/render";
 

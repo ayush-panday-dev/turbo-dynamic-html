@@ -7,11 +7,6 @@ import { Logger } from "../utils/logger";
 const DEFAULT_404 = path.join(__dirname, "../template/404.ts");
 const DEFAULT_500 = path.join(__dirname, "../template/500.ts");
 
-export interface TDHRouteConfig {
-  layout: string[];
-  filepath: string;
-}
-
 function listRecursiveSync(base: string): string[] {
   const scan = (dir: string): string[] =>
     fs.readdirSync(dir, { withFileTypes: true }).flatMap((e: Dirent) => {
