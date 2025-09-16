@@ -7,7 +7,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](http://www.typescriptlang.org/)
 
-> **WARNING**: This pacakge is on development mode and currently work with bun only, we are working on it to make compaitable to npm and with _1.0.0_ stable release we will fix this issue
+> **WARNING**: This package only sutaible for module js not common js. if you want to stay with common js do not declare "type": "commonjs" on package json and ignore some warning related to types.
 
 **Superfast JavaScript template engine for dynamic Webapplication**
 
