@@ -3,6 +3,10 @@ import path from "path";
 import { build, type BuildResult } from "esbuild";
 import RootConfig from "../config/root.config";
 import { Logger } from "../utils/logger";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const DEFAULT_404 = path.join(__dirname, "../template/404.ts");
 const DEFAULT_500 = path.join(__dirname, "../template/500.ts");
