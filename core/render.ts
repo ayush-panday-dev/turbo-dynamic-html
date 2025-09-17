@@ -48,8 +48,8 @@ export default async function render(pathname: string, data: any = {}) {
       const layoutInstance = (
         await import(path.join(notFountDir, "_layout.js"))
       ).default as TDHLayout;
-      const pagedata = await page.render(null);
-      const layout = await layoutInstance.render(null, pagedata);
+      const pagedata = await page.render(data);
+      const layout = await layoutInstance.render(data, pagedata);
 
       return layout;
     }
@@ -58,7 +58,7 @@ export default async function render(pathname: string, data: any = {}) {
     let htmlString = await pageRender.render({ ...data, params });
     for (const layout of config.layout) {
       const layoutInstance = (await import(layout)).default as TDHLayout;
-      htmlString = layoutInstance.render({ ...data, params }, htmlString);
+      htmlString = await layoutInstance.render({ ...data, params }, htmlString);
     }
 
     MemoryCatching.insertCatche(pathname, htmlString, {
@@ -73,7 +73,7 @@ export default async function render(pathname: string, data: any = {}) {
     const layoutInstance = (await import(path.join(notFountDir, "_layout.js")))
       .default as TDHLayout;
     const pagedata = await page.render(error);
-    const layout = await layoutInstance.render(null, pagedata);
+    const layout = await layoutInstance.render(data, pagedata);
 
     return layout;
   }

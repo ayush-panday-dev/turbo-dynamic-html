@@ -11,7 +11,7 @@ interface iRootConfig {
 }
 
 interface GenerateTDHLayoutOptions {
-  render: (data: any, children: string) => string;
+  render: (data: any, children: string) => Promise<string> | string;
   type?: "static" | "dynamic";
   preventCatcheContent?: boolean;
 }

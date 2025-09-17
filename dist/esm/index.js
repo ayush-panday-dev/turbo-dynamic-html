@@ -2903,9 +2903,6 @@ class Logger {
 }
 
 // core/TDHRouteGenerator.ts
-var __dirname = "/home/ayush/projects/FATE/core";
-var DEFAULT_404 = path.join(__dirname, "../template/404.ts");
-var DEFAULT_500 = path.join(__dirname, "../template/500.ts");
 function listRecursiveSync(base) {
   const scan = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
     const full = path.join(dir, e.name);
@@ -2953,10 +2950,10 @@ async function TDHRouteGenerator() {
     return;
   }
   if (!notFound) {
-    notFound = DEFAULT_404;
+    throw new Error("404.ts/js is required on your configured route directory.");
   }
   if (!internalServerError) {
-    internalServerError = DEFAULT_500;
+    internalServerError = "500.ts/js is required on your configured route directory.";
   }
   try {
     const allEntryPoints = [
@@ -3116,15 +3113,15 @@ async function render(pathname, data = {}) {
       const notFountDir = path2.join(process.cwd(), ".TDH", "build");
       const page = (await import(path2.join(notFountDir, "404.js"))).default;
       const layoutInstance = (await import(path2.join(notFountDir, "_layout.js"))).default;
-      const pagedata = await page.render(null);
-      const layout = await layoutInstance.render(null, pagedata);
+      const pagedata = await page.render(data);
+      const layout = await layoutInstance.render(data, pagedata);
       return layout;
     }
     const pageRender = (await import(config.filepath)).default;
     let htmlString = await pageRender.render({ ...data, params });
     for (const layout of config.layout) {
       const layoutInstance = (await import(layout)).default;
-      htmlString = layoutInstance.render({ ...data, params }, htmlString);
+      htmlString = await layoutInstance.render({ ...data, params }, htmlString);
     }
     MemoryCatching.insertCatche(pathname, htmlString, {
       expiry: new Date(Date.now() + (RootConfig.TDH_TTL || 120) * 1000)
@@ -3136,7 +3133,7 @@ async function render(pathname, data = {}) {
     const page = (await import(path2.join(notFountDir, "500.js"))).default;
     const layoutInstance = (await import(path2.join(notFountDir, "_layout.js"))).default;
     const pagedata = await page.render(error);
-    const layout = await layoutInstance.render(null, pagedata);
+    const layout = await layoutInstance.render(data, pagedata);
     return layout;
   }
 }

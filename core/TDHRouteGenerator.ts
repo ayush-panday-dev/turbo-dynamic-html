@@ -5,12 +5,6 @@ import RootConfig from "../config/root.config";
 import { Logger } from "../utils/logger";
 import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const DEFAULT_404 = path.join(__dirname, "../template/404.ts");
-const DEFAULT_500 = path.join(__dirname, "../template/500.ts");
-
 function listRecursiveSync(base: string): string[] {
   const scan = (dir: string): string[] =>
     fs.readdirSync(dir, { withFileTypes: true }).flatMap((e: Dirent) => {
@@ -77,11 +71,14 @@ export async function TDHRouteGenerator() {
   }
 
   if (!notFound) {
-    notFound = DEFAULT_404;
+    throw new Error(
+      "404.ts/js is required on your configured route directory."
+    );
   }
 
   if (!internalServerError) {
-    internalServerError = DEFAULT_500;
+    internalServerError =
+      "500.ts/js is required on your configured route directory.";
   }
 
   try {
